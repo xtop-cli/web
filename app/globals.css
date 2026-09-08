@@ -271,7 +271,7 @@ a:hover {
   }
 }
 
-.brand-avatar {
+.brand-logo {
   position: relative;
   width: 30px;
   height: 30px;
@@ -280,7 +280,7 @@ a:hover {
   flex: none;
 }
 
-.brand-avatar img {
+.brand-logo img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -288,7 +288,7 @@ a:hover {
   object-fit: cover;
 }
 
-/* avatar variants by theme (X dark art vs transparent art) */
+/* logo variants by theme (X dark art vs transparent art) */
 .theme-dark-only {
   display: block;
 }

@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="https://raw.githubusercontent.com/xtop-cli/web/main/public/img/avatar.png" width="100px" alt="XFetch banner" />Web</h1>
+<img src="https://raw.githubusercontent.com/xtop-cli/web/main/public/img/logo.png" width="100px" alt="Xtop logo" />Web</h1>
 
 <p align="center">Landing page and documentation site for <a href="https://github.com/xtop-cli/xtop">xtop</a>, the cross-platform TUI system monitor written in Rust.</p>
 

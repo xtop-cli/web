@@ -51,9 +51,9 @@ export default function SiteHeader({ current }: { current?: "home" | "docs" }) {
     <header className="site-header">
       <div className="container header-inner">
         <Link className="brand" href={homeHref} onClick={close} aria-label="Xtop — home">
-          <span className="brand-avatar shadow-br">
-            <img className="theme-dark-only" src={`${asset("/img/avatar-dark.png")}`} alt="" width={30} height={30} />
-            <img className="theme-light-only" src={`${asset("/img/avatar.png")}`} alt="" width={30} height={30} />
+          <span className="brand-logo shadow-br">
+            <img className="theme-dark-only" src={`${asset("/img/logo-dark.png")}`} alt="" width={30} height={30} />
+            <img className="theme-light-only" src={`${asset("/img/logo.png")}`} alt="" width={30} height={30} />
           </span>
           <span>
             xtop<span className="brand-cursor">_</span>
