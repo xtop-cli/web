@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { useLocale } from "./use-locale";
-import { COPY, type Locale } from "@/lib/i18n";
+import { COPY, type Locale, stripSubPath } from "@/lib/i18n";
 import { asset, ASSET_PREFIX } from "@/lib/asset";
 
 const P = ASSET_PREFIX;
@@ -13,7 +13,7 @@ const P = ASSET_PREFIX;
 /** href of the same logical page in the *other* language:
  *  / ↔ /en/  ·  /docs/… ↔ /docs/es/… */
 function swapPath(pathname: string | null, to: Locale): string {
-  const p = pathname ?? "/";
+  const p = stripSubPath(pathname);
   const rest = (s: string) => (s ? `${s}/` : "/");
   if (to === "es") {
     if (p.startsWith("/en/")) return `${P}/`;
@@ -41,7 +41,7 @@ export default function SiteHeader({ current }: { current?: "home" | "docs" }) {
   const homeHref = loc === "es" ? `${P}/` : `${P}/en/`;
   const docsHref = loc === "es" ? `${P}/docs/es/` : `${P}/docs/en/`;
   const other: Locale = loc === "es" ? "en" : "es";
-  const path = pathname ?? "/";
+  const path = stripSubPath(pathname ?? "/");
   // Anchor of each language points to the same logical page in that language
   // (self when it is already the active one).
   const esHref = loc === "es" ? `${P}${path}` : swapPath(path, "es");

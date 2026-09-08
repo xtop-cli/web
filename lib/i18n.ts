@@ -2,14 +2,29 @@ export type Locale = "es" | "en";
 
 export const DEFAULT_LOCALE: Locale = "es";
 
+export const ASSET_BASE = process.env.NEXT_PUBLIC_ASSET_PREFIX ?? "";
+export const asset = (p: string) => `${ASSET_BASE}${p}`;
+
+/** Strip the deployment sub-path (ASSET_BASE, e.g. "/web") from a pathname so
+ *  locale detection and language switching work under any prefix. */
+export function stripSubPath(pathname: string | null): string {
+  if (!pathname) return "/";
+  if (ASSET_BASE && pathname.startsWith(ASSET_BASE)) {
+    const rest = pathname.slice(ASSET_BASE.length);
+    return rest || "/";
+  }
+  return pathname;
+}
+
 /** Map a URL path to its content locale:
  *  - /docs/es/*      → es (Spanish docs)
  *  - /en*, /docs/en/*, /docs/* (English alias) → en
  *  - / (Spanish landing) and anything else → es */
 export function localeFromPath(pathname: string | null): Locale {
-  if (!pathname) return DEFAULT_LOCALE;
-  if (pathname.startsWith("/docs/es")) return "es";
-  if (pathname.startsWith("/en") || pathname.startsWith("/docs/")) return "en";
+  const p = stripSubPath(pathname);
+  if (!p) return DEFAULT_LOCALE;
+  if (p.startsWith("/docs/es")) return "es";
+  if (p.startsWith("/en") || p.startsWith("/docs/")) return "en";
   return "es";
 }
 
@@ -17,9 +32,6 @@ export const isEnPath = (p: string | null) => localeFromPath(p) === "en";
 
 /** Hub path for a docs locale (Spanish docs live at /docs/es, English at /docs/en). */
 export const docsHub = (locale: Locale) => `/docs/${locale}/`;
-
-export const ASSET_BASE = process.env.NEXT_PUBLIC_ASSET_PREFIX ?? "";
-export const asset = (p: string) => `${ASSET_BASE}${p}`;
 
 /* ------------------------------------------------------------------ */
 

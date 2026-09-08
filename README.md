@@ -1,112 +1,64 @@
-# xtop web
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/xtop-cli/web/main/public/img/avatar.png" width="100px" alt="XFetch banner" />Web</h1>
 
-Official site and documentation for the **xtop-cli** ecosystem (a TUI system
-monitor written in Rust). Built with **Next.js** (App Router, `output: export`)
-— a fully static site: pre-rendered HTML, **ES/EN** (`/` and `/en/`), two themes
-(palette **X** in dark mode, palette **Madrid** in light mode) and **Hack Nerd
-Font** typography.
+<p align="center">Landing page and documentation site for <a href="https://github.com/xtop-cli/xtop">xtop</a>, the cross-platform TUI system monitor written in Rust.</p>
 
-## Repository layout
+<p align="center">The documentation served here is mirrored literally from every repository of the <a href="https://github.com/xtop-cli">xtop-cli</a> organization — the kernel, its API contracts, widget packs, layouts, plugins, extensions and effects. Updates to those repos are reflected here, so the site stays in sync with the ecosystem it presents.</p>
 
-```
-app/                  Next.js routes (App Router)
-  layout.tsx          root: theme + fonts + header/footer + icon metadata
-  page.tsx            ES landing (/)
-  en/page.tsx         EN landing (/en/)
-  docs/[[...slug]]/   EN alias of /docs (legacy routes)
-  docs/en/[[...slug]]/  EN documentation (/docs/en/…)
-  docs/es/[[...slug]]/  ES documentation (/docs/es/…)
-  globals.css         design system (X / Madrid tokens)
-app/fonts/            Hack Nerd Font Mono (woff2, PUA-free subset)
-components/           header, footer, docs-shell, doc-view, docs search…
-public/img/           logos, avatars and screenshots
-public/img/previews/  web-optimized capture gallery (webp)
-public/favicon.ico    favicon served at the site root
-docs/                 EN mirror: literal .md copies from the repos (canonical)
-  _home.md            /docs/en hub (hidden from navigation)
-i18n/es/docs/         ES translation of the same .md files + _home.md
-lib/                  palettes, repos, markdown pipeline, i18n, search
-lib/search-data.ts    full-text EN+ES index (AUTO-GENERATED in prebuild)
-.github/workflows/    deploy.yml — build + publish to GitHub Pages on main
-```
+<h2>Documents</h2>
 
-## Why docs live in `docs/` as .md
+<h3 align="center">Xtop (kernel)</h3>
 
-Documentation is copied **literally** from each repository (README + `docs/`),
-keeping its internal structure. During the build, `lib/docs.ts`:
+<ul>
+  <li><a href="docs/xtop/README.md">README</a></li>
+  <li><a href="docs/xtop/docs/features.md">Features</a></li>
+  <li><a href="docs/xtop/docs/installation.md">Installation</a></li>
+  <li><a href="docs/xtop/docs/usage.md">Usage</a></li>
+  <li><a href="docs/xtop/docs/configuration.md">Configuration</a></li>
+  <li><a href="docs/xtop/docs/customization.md">Customization</a></li>
+  <li><a href="docs/xtop/docs/colors.md">Colors</a></li>
+  <li><a href="docs/xtop/docs/plugin.md">Plugins</a></li>
+  <li><a href="docs/xtop/docs/multi-repo.md">Multi-repo architecture</a></li>
+  <li><a href="docs/xtop/docs/design.md">Design language</a></li>
+  <li><a href="docs/xtop/ROADMAP.md">Roadmap</a></li>
+  <li><a href="docs/xtop/CHANGELOG.md">Changelog</a></li>
+  <li><a href="docs/xtop/CONTRIBUTING.md">Contributing</a></li>
+</ul>
 
-- indexes `docs/` and generates one static page per file:
-  `docs/xtop/docs/usage.md` → `/docs/en/xtop/docs/usage/` and
-  `/docs/es/xtop/docs/usage/` (repo/subfolder `README.md` files are served at
-  their folder route; language-less `/docs/…` routes render the EN alias);
-- renders the markdown (including the HTML already present in some docs) and
-  **re-resolves relative links** between files to local same-language routes;
-  non-mirrored targets point to the real `blob` on GitHub;
-- rewrites captures referenced as `assets/previews/*.png` from the repos to
-  the local optimized files in `public/img/previews/` (`previewN.webp`, same
-  basename — swap or add captures without touching code);
-- feeds the sidebar (per-repo tree) and per-repo prev/next navigation.
+<h3 align="center">Ecosystem repositories</h3>
 
-The **docs search** (`components/docs-top-search.tsx`) sits above the article
-on every docs page and does a full-text search over the active language index.
-In `prebuild` (`scripts/build-search-index.mjs`) it generates
-`lib/search-data.ts`: a static index of the EN + ES docs with title/path/
-content ranking, snippets and highlighting. Page transitions use the wrapper
-`components/page-shell.tsx` (route animation) and theme toggling uses the View
-Transitions API when the browser supports it.
+<ul>
+  <li><a href="docs/api/README.md">API contracts</a> — shared crates every repository builds on</li>
+  <li><a href="docs/widgets/README.md">Widgets</a> — base and alternative widget packs</li>
+  <li><a href="docs/layouts/README.md">Layouts</a> — data-driven layouts and layout modes</li>
+  <li><a href="docs/plugins/README.md">Plugins</a> — functionality plugins (samurai and friends)</li>
+  <li><a href="docs/extensions/README.md">Extensions</a> — server-style extensions (MCP)</li>
+  <li><a href="docs/effects/README.md">Effects</a> — frame animation effects</li>
+</ul>
 
-### Refreshing docs after a repo change
+<p align="center"><em>Docs are also available in <a href="https://xtop-cli.github.io/web/">Español</a> on the live site (translated under <a href="i18n/es/docs/">i18n/es/docs/</a>).</em></p>
 
-```sh
-./scripts/sync-docs.sh   # copies EN .md files from the sibling repos into ./docs
-npm run build            # regenerates the search index (prebuild)
-```
+<h2 align="center">Related Repos</h2>
 
-The ES translation (`i18n/es/docs/`) is updated by hand, file by file, when
-its EN original changes; both indexes regenerate automatically on build.
+<ul>
+  <li><a href="https://github.com/xtop-cli/xtop">Xtop</a></li>
+  <li><a href="https://github.com/xtop-cli/api">API</a></li>
+  <li><a href="https://github.com/xtop-cli/widgets">Widgets</a></li>
+  <li><a href="https://github.com/xtop-cli/layouts">Layouts</a></li>
+  <li><a href="https://github.com/xtop-cli/plugins">Plugins</a></li>
+  <li><a href="https://github.com/xtop-cli/extensions">Extensions</a></li>
+  <li><a href="https://github.com/xtop-cli/effects">Effects</a></li>
+  <li><a href="https://github.com/xtop-cli/web">Web</a></li>
+</ul>
 
-## Development
 
-```sh
-npm install
-npm run dev     # http://localhost:3000
-npm run build   # static export into ./out (ready to serve or deploy)
-```
+<div align="center">
+<h2>X</h2>
 
-Deploying under a sub-path (e.g. `user.github.io/web`) is handled by the build
-prefix. Next.js's own assets (`/_next/…`) are prefixed via `assetPrefix`, while
-the app's URLs (`/img/…`, `/docs/…`) are prefixed through the
-`NEXT_PUBLIC_ASSET_PREFIX` env var at build time:
+<a href="https://xscriptor.io">Dev</a>
+ &amp; 
+<a href="https://github.com/xscriptor">Git</a>
+ &amp; 
+<a href="https://www.xscriptor.com">X</a>
 
-```sh
-PAGES_BASE_PATH=/web NEXT_PUBLIC_ASSET_PREFIX=/web npm run build
-```
-
-`PAGES_BASE_PATH` drives `assetPrefix` in `next.config.mjs` (leave both unset
-for a root-domain/local build). The GitHub Actions workflow
-(`.github/workflows/deploy.yml`) runs this automatically on pushes to `main`
-and publishes the site with the GitHub Pages actions using the base path
-reported by `actions/configure-pages`.
-
-## Live site
-
-The site is served from the `main` branch as a project page of the
-`xtop-cli` organization (requires **Settings → Pages → Source: GitHub Actions**
-in the repository):
-
-- <https://xtop-cli.github.io/web/>
-
-## Themes
-
-| Dark (default) | Light |
-|---|---|
-| **X** · bg `#050505`, fg `#f7f1ff` | **Madrid** · bg `#fafafa`, fg `#1a1a1a` |
-
-Canonical palettes live in [`xscriptor-colors/assets`](https://github.com/xscriptor-colors/assets)
-and the role reference in `docs/xtop/docs/colors.md` (slot 1 alert, 2 good,
-3 warn, 4 rx, 5 tx, 6 accent, 8 dim…). The design uses no borders: cards are
-separated by rounded offset shadows cast down-right (or down-left).
-
-## License
-
-MIT — documentation content © xtop-cli repos, see each repo's `LICENSE`.
+</div>
