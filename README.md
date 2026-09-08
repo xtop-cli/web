@@ -1,95 +1,112 @@
 # xtop web
 
-Sitio oficial y documentación del ecosistema **xtop-cli** (TUI system monitor
-en Rust). Construido con **Next.js** (App Router, `output: export`) — un sitio
-100% estático: HTML pre-renderizado, **ES/EN** (`/` y `/en/`), dos temas
-(paleta **X** en oscuro, paleta **Madrid** en claro) y tipografía
-**Hack Nerd Font**.
+Official site and documentation for the **xtop-cli** ecosystem (a TUI system
+monitor written in Rust). Built with **Next.js** (App Router, `output: export`)
+— a fully static site: pre-rendered HTML, **ES/EN** (`/` and `/en/`), two themes
+(palette **X** in dark mode, palette **Madrid** in light mode) and **Hack Nerd
+Font** typography.
 
-## Estructura
+## Repository layout
 
 ```
-app/                  rutas Next.js (App Router)
-  layout.tsx          raíz: tema + fuentes + header/footer
-  page.tsx            landing ES (/)
-  en/page.tsx         landing EN (/en/)
-  docs/[[...slug]]/   alias EN de /docs (rutas históricas)
-  docs/en/[[...slug]]/  documentación EN (/docs/en/…)
-  docs/es/[[...slug]]/  documentación ES (/docs/es/…)
-  globals.css         design system (tokens X / Madrid)
-app/fonts/            Hack Nerd Font Mono (woff2, subset sin PUA)
-components/           header, footer, docs-shell, doc-view, lupa de búsqueda…
-docs/                 espejo EN: .md literales copiados de los repos (canónico)
-  _home.md            hub de /docs/en (no se lista en la navegación)
-i18n/es/docs/         traducción ES de los mismos 41 .md + _home.md
-lib/                  paletas, repos, pipeline markdown, i18n, búsqueda
-lib/search-data.ts    índice full-text EN+ES (AUTO-GENERADO en prebuild)
-public/img/           logos, avatares y capturas (placeholders png)
+app/                  Next.js routes (App Router)
+  layout.tsx          root: theme + fonts + header/footer + icon metadata
+  page.tsx            ES landing (/)
+  en/page.tsx         EN landing (/en/)
+  docs/[[...slug]]/   EN alias of /docs (legacy routes)
+  docs/en/[[...slug]]/  EN documentation (/docs/en/…)
+  docs/es/[[...slug]]/  ES documentation (/docs/es/…)
+  globals.css         design system (X / Madrid tokens)
+app/fonts/            Hack Nerd Font Mono (woff2, PUA-free subset)
+components/           header, footer, docs-shell, doc-view, docs search…
+public/img/           logos, avatars and screenshots
+public/img/previews/  web-optimized capture gallery (webp)
+public/favicon.ico    favicon served at the site root
+docs/                 EN mirror: literal .md copies from the repos (canonical)
+  _home.md            /docs/en hub (hidden from navigation)
+i18n/es/docs/         ES translation of the same .md files + _home.md
+lib/                  palettes, repos, markdown pipeline, i18n, search
+lib/search-data.ts    full-text EN+ES index (AUTO-GENERATED in prebuild)
+.github/workflows/    deploy.yml — build + publish to GitHub Pages on main
 ```
 
-## Por qué los docs viven en `docs/` como .md
+## Why docs live in `docs/` as .md
 
-La documentación se copia **literal** desde cada repositorio (README + `docs/`)
-respetando su estructura interna. En build, `lib/docs.ts`:
+Documentation is copied **literally** from each repository (README + `docs/`),
+keeping its internal structure. During the build, `lib/docs.ts`:
 
-- indexa `docs/` y genera una página estática por fichero:
-  `docs/xtop/docs/usage.md` → `/docs/en/xtop/docs/usage/` y
-  `/docs/es/xtop/docs/usage/` (los `README.md` de repo/subcarpeta se sirven
-  en la ruta de su carpeta; `/docs/…` sin idioma redirige al alias EN);
-- renderiza el markdown (incluido el HTML que ya contienen algunos docs) y
-  **re-resuelve los enlaces relativos** entre ficheros hacia las rutas locales
-  del mismo idioma; los destinos no espejados apuntan al `blob` real en GitHub;
-- reescribe las capturas de `assets/previews/*.png` hacia las locales en
-  `public/img/previews/` (hoy placeholders con los mismos nombres: basta
-  sustituirlos por las capturas reales, sin tocar código);
-- alimenta el sidebar (árbol por repo) y la navegación prev/next por repo.
+- indexes `docs/` and generates one static page per file:
+  `docs/xtop/docs/usage.md` → `/docs/en/xtop/docs/usage/` and
+  `/docs/es/xtop/docs/usage/` (repo/subfolder `README.md` files are served at
+  their folder route; language-less `/docs/…` routes render the EN alias);
+- renders the markdown (including the HTML already present in some docs) and
+  **re-resolves relative links** between files to local same-language routes;
+  non-mirrored targets point to the real `blob` on GitHub;
+- rewrites captures referenced as `assets/previews/*.png` from the repos to
+  the local optimized files in `public/img/previews/` (`previewN.webp`, same
+  basename — swap or add captures without touching code);
+- feeds the sidebar (per-repo tree) and per-repo prev/next navigation.
 
-La **lupa de búsqueda** (`components/docs-top-search.tsx`) se muestra arriba
-del artículo en todas las páginas de docs y busca a texto completo en el
-índice del idioma activo. En `prebuild` (`scripts/build-search-index.mjs`) se
-genera `lib/search-data.ts`: índice estático de los 41 docs EN + 41 ES con
-ranking por título/ruta/contenido, snippets y resaltado. Las transiciones de
-página usan el wrapper `components/page-shell.tsx` (animación por ruta) y el
-cambio de tema usa la View Transitions API cuando el navegador la soporta.
+The **docs search** (`components/docs-top-search.tsx`) sits above the article
+on every docs page and does a full-text search over the active language index.
+In `prebuild` (`scripts/build-search-index.mjs`) it generates
+`lib/search-data.ts`: a static index of the EN + ES docs with title/path/
+content ranking, snippets and highlighting. Page transitions use the wrapper
+`components/page-shell.tsx` (route animation) and theme toggling uses the View
+Transitions API when the browser supports it.
 
-### Actualizar los docs tras un cambio en los repos
+### Refreshing docs after a repo change
 
 ```sh
-./scripts/sync-docs.sh   # copia los .md EN de los repos hermanos a ./docs
-npm run build            # regenera el índice de búsqueda (prebuild)
+./scripts/sync-docs.sh   # copies EN .md files from the sibling repos into ./docs
+npm run build            # regenerates the search index (prebuild)
 ```
 
-La traducción ES (`i18n/es/docs/`) se actualiza a mano fichero a fichero
-cuando cambie su original EN; ambos índices se regeneran solos en el build.
+The ES translation (`i18n/es/docs/`) is updated by hand, file by file, when
+its EN original changes; both indexes regenerate automatically on build.
 
-## Desarrollo
+## Development
 
 ```sh
 npm install
 npm run dev     # http://localhost:3000
-npm run build   # estático en ./out (listo para servir o GitHub Pages)
+npm run build   # static export into ./out (ready to serve or deploy)
 ```
 
-Para publicar bajo una sub-ruta (p. ej. `usuario.github.io/web`) compila con
-prefijo de assets y enlaces:
+Deploying under a sub-path (e.g. `user.github.io/web`) is handled by the build
+prefix. Next.js's own assets (`/_next/…`) are prefixed via `assetPrefix`, while
+the app's URLs (`/img/…`, `/docs/…`) are prefixed through the
+`NEXT_PUBLIC_ASSET_PREFIX` env var at build time:
 
 ```sh
-NEXT_PUBLIC_ASSET_PREFIX=/web npm run build
+PAGES_BASE_PATH=/web NEXT_PUBLIC_ASSET_PREFIX=/web npm run build
 ```
 
-(conviene además apuntar `metadataBase` y `basePath` de `next.config.mjs`).
+`PAGES_BASE_PATH` drives `assetPrefix` in `next.config.mjs` (leave both unset
+for a root-domain/local build). The GitHub Actions workflow
+(`.github/workflows/deploy.yml`) runs this automatically on pushes to `main`
+and publishes the site with the GitHub Pages actions using the base path
+reported by `actions/configure-pages`.
 
-## Temas
+## Live site
 
-| Tema (oscuro, por defecto) | Tema (claro) |
+The site is served from the `main` branch as a project page of the
+`xtop-cli` organization (requires **Settings → Pages → Source: GitHub Actions**
+in the repository):
+
+- <https://xtop-cli.github.io/web/>
+
+## Themes
+
+| Dark (default) | Light |
 |---|---|
 | **X** · bg `#050505`, fg `#f7f1ff` | **Madrid** · bg `#fafafa`, fg `#1a1a1a` |
 
-Paletas canónicas en [`xscriptor-colors/assets`](https://github.com/xscriptor-colors/assets)
-y referencia de roles en `docs/xtop/docs/colors.md` (slot 1 alert, 2 good,
-3 warn, 4 rx, 5 tx, 6 accent, 8 dim…). El diseño no usa bordes: las tarjetas
-se separan con sombras de offset redondeadas hacia abajo (derecha o izquierda).
+Canonical palettes live in [`xscriptor-colors/assets`](https://github.com/xscriptor-colors/assets)
+and the role reference in `docs/xtop/docs/colors.md` (slot 1 alert, 2 good,
+3 warn, 4 rx, 5 tx, 6 accent, 8 dim…). The design uses no borders: cards are
+separated by rounded offset shadows cast down-right (or down-left).
 
-## Licencia
+## License
 
-MIT — contenido de documentación © repos xtop-cli, ver `LICENSE` de cada repo.
+MIT — documentation content © xtop-cli repos, see each repo's `LICENSE`.

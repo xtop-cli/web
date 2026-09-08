@@ -244,6 +244,10 @@ const ES: Copy = {
       { cap: "Detail Processes", badge: "detalle de procesos" },
       { cap: "Detail Network", badge: "red e interfaces" },
       { cap: "Detail Dashboard", badge: "cpu · summary · sensors" },
+      { cap: "Process Focus", badge: "procesos" },
+      { cap: "Process Focus", badge: "theme berlin" },
+      { cap: "xtop en Windows", badge: "monitor de sistema" },
+      { cap: "xtop en Windows", badge: "monitor de sistema" },
     ],
   },
   palettes: {
@@ -446,6 +450,10 @@ const EN: Copy = {
       { cap: "Detail Processes", badge: "process detail" },
       { cap: "Detail Network", badge: "network & interfaces" },
       { cap: "Detail Dashboard", badge: "cpu · summary · sensors" },
+      { cap: "Process Focus", badge: "processes" },
+      { cap: "Process Focus", badge: "berlin theme" },
+      { cap: "xtop on Windows", badge: "system monitor" },
+      { cap: "xtop on Windows", badge: "system monitor" },
     ],
   },
   palettes: {

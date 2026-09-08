@@ -15,8 +15,17 @@ const hack = localFont({
   preload: true,
 });
 
+const bp = process.env.PAGES_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://xtop-cli.github.io/web"),
+  icons: {
+    icon: [
+      { url: `${bp}/icon.png`, type: "image/png", sizes: "512x512" },
+      { url: `${bp}/favicon.ico`, type: "image/x-icon", sizes: "16x16" },
+    ],
+    apple: [{ url: `${bp}/apple-icon.png` }],
+  },
   title: {
     default: "Xtop — a cross-platform TUI system monitor",
     template: "%s · Xtop",

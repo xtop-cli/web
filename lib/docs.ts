@@ -267,12 +267,12 @@ export function renderMarkdown(source: string, file: DocFile, locale: DocLocale)
 
   const rewriteImg = (src: string): string => {
     // previews referenced from the kernel README/docs: serve the local file.
-    // Placeholders share the real filenames (previewN.png), so swapping in
-    // the final captures later requires no code change.
+    // The local captures live as optimized webp under /img/previews/ sharing
+    // the original basenames (previewN), so docs resolve them by name.
     const m = /assets\/previews\/([^"')]+)\.(?:png|jpg|jpeg|gif|webp)$/i.exec(src);
-    if (m) return `${asset(`/img/previews/${m[1]}.png`)}`;
+    if (m) return `${asset(`/img/previews/${m[1]}.webp`)}`;
     const mm = /assets\/previews\/([^"')]+)\.(?:png|jpg|jpeg|webp)/i.exec(src);
-    if (mm) return `${asset(`/img/previews/${mm[1]}.png`)}`;
+    if (mm) return `${asset(`/img/previews/${mm[1]}.webp`)}`;
     return src;
   };
 

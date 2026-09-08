@@ -7,6 +7,26 @@ import { COPY, type Locale } from "@/lib/i18n";
 
 const P = ASSET_PREFIX;
 
+const PREVIEW_H = [650, 650, 650, 650, 650, 650, 563, 563];
+
+/* Mosaic row sizes: 1 full, 2 halves, 1 full, 1 full, 3 thirds; trailing
+   incomplete rows widen to span the full grid width. */
+const ROW_SIZES = [1, 2, 1, 1, 3];
+
+function mosaicSpans(count: number): number[] {
+  const spans: number[] = [];
+  let i = 0;
+  let row = 0;
+  while (i < count) {
+    const want = ROW_SIZES[row % ROW_SIZES.length];
+    const take = Math.min(want, count - i);
+    for (let j = 0; j < take; j++) spans.push(6 / take);
+    i += take;
+    row++;
+  }
+  return spans;
+}
+
 /* Minimal inline markup parser: `code`, **bold**, [label](url) */
 const TOKEN = /(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]*\))/g;
 
@@ -56,6 +76,7 @@ function CodePanel({ head, hint, code }: { head: string; hint: string; code: str
 export default function Landing({ lang }: { lang: Locale }) {
   const c = COPY[lang];
   const docsBase = `${P}/docs/${lang === "es" ? "es" : "en"}`;
+  const previewSpans = mosaicSpans(c.screenshots.items.length);
 
   const siteThemeSuffix = (name: string) =>
     name === "X"
@@ -215,21 +236,17 @@ export default function Landing({ lang }: { lang: Locale }) {
           <div className="previews-grid">
             {c.screenshots.items.map((p, i) => {
               const file = `preview${i + 1}`;
-              const dims = [{ w: 1000, h: 693 }, { w: 1000, h: 794 }, { w: 1000, h: 678 }, { w: 1000, h: 653 }][i];
+              const span = previewSpans[i];
               return (
-                <figure className="preview-card" key={file}>
+                <figure className={`preview-card span-${span}`} key={file}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={asset(`/img/previews/${file}.png`)}
+                    src={asset(`/img/previews/${file}.webp`)}
                     alt={`xtop screenshot — ${p.cap}`}
                     loading="lazy"
-                    width={dims.w}
-                    height={dims.h}
+                    width={1000}
+                    height={PREVIEW_H[i] ?? 650}
                   />
-                  <figcaption>
-                    <span className="badge badge-accent" style={{ marginRight: "0.5rem" }}>{p.cap}</span>
-                    <span className="badge badge-neutral">{p.badge}</span>
-                  </figcaption>
                 </figure>
               );
             })}
