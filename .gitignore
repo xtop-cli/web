@@ -1,0 +1,85 @@
+# ------------------------------------------------------------------
+# Xtop web — .gitignore
+# Ajustado a un proyecto Next.js en Linux; cubre deps, builds, logs,
+# entorno, editores y basura de sistema sin ser dogmático.
+# ------------------------------------------------------------------
+
+# Dependencias y caches de paquetes
+node_modules/
+.pnpm-store/
+.yarn/cache/
+.yarn/install-state.gz
+
+# Builds de Next.js
+.next/
+out/
+build/
+dist/
+.turbo/
+
+# Tipos y artefactos del compilador
+next-env.d.ts
+*.tsbuildinfo
+eslintcache
+.eslintcache
+.tscache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Variables de entorno (nunca secretos en git)
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Cobertura y reportes
+coverage/
+htmlcov/
+*.lcov
+
+# Directorios de trabajo de Vercel / despliegue
+.vercel/
+
+# Editores e IDE (comparte solo config útil)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+*.code-workspace
+
+# Sistemas de archivos Linux/Unix — edición y montajes
+# vim / neovim / emacs
+*~
+[._]*.s[a-v][a-z]
+*.sw[a-p]
+*.un~
+\#*\#
+
+# kernel coredumps
+core
+core.*
+*.core
+
+# KDE/GNOME/otros artefactos de escritorio
+.directory
+.desktop.ini
+
+# macOS (por si alguien contribuye desde ahí)
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Archivos sensibles locales
+*.pem
+*.key
+
+# Fuentes/scripts binarios en caché (no mezclar con assets versionados)
+tmp/

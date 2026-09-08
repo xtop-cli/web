@@ -1,0 +1,68 @@
+# ------------------------------------------------------------------
+# Xtop web — .gitattributes
+# Convencian del org xtop-cli (ver repos hermanos): LF en todo el
+# repositorio, en todas las plataformas. `text=auto eol=lf` fuerza LF
+# tambian en checkout, anulando core.autocrlf locales.
+# ------------------------------------------------------------------
+
+* text=auto eol=lf
+
+# Tipos de texto explacitos (normalizacian + diff correcto)
+*.{c,h,rs,go,py}          text eol=lf
+*.{ts,tsx,js,jsx,mjs,cjs} text eol=lf
+*.{css,scss,sass,less}    text eol=lf
+*.{html,xml,svg}          text eol=lf
+*.{json,jsonc,json5}      text eol=lf
+*.{yml,yaml,toml,ini,conf} text eol=lf
+*.md                      text eol=lf
+*.{sh,bash,zsh,fish}      text eol=lf
+*.ps1                     text eol=lf
+*.env                     text eol=lf
+*.gitignore               text eol=lf
+*.gitattributes           text eol=lf
+
+# Windows batch se queda en CRLF (edge cases del parser cmd).
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Formatos binarios: nunca normalizar ni tratar como texto.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.avif binary
+*.bmp binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.tar binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.a binary
+*.rlib binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+
+# Los ficheros de fuentes web generados por next/font van hasheados:
+# nunca dejen de tratarse como binarios.
+
+# El espejo de documentacian son .md literales de otros repos: contar
+# como documentation para no inflar las estadasticas de lenguaje de
+# GitHub (linguist).
+docs/** linguist-documentation
+docs/** linguist-language=Markdown
+
+# package-lock.json es generado: ocaltalo en los diffs por defecto
+# (sigue versionado, pero no ensucia las review).
+package-lock.json linguist-generated=true
+
+# Atributos de diff por defecto sanos para el ecosistema.
+*.json diff=json
+*.md diff=markdown
