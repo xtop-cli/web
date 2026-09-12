@@ -66,8 +66,16 @@ más control:</p>
 # Install only dependencies (Rust, build tools)
 ./install.sh --install-deps
 
+# Install with the runtime widget hosts enabled (sandboxed .wasm widgets
+# and helper processes in any language)
+./install.sh --with-runtime-widgets
+
 # Show help
 ./install.sh --help</code></pre>
+
+<p>En Windows el mismo opt-in es un switch del instalador:</p>
+
+<pre><code>.\install.ps1 -RuntimeWidgets</code></pre>
 
 <h3>Distribuciones compatibles</h3>
 
