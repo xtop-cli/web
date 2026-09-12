@@ -15,7 +15,7 @@
 | `xtop` | **Kernel** | la app: binario de crate único, `src/` por áreas (commands, config, plugins, providers, state, theme, ui). Consume todos los demás repos |
 | `widgets` | **Renderers** | packs de renderers de widgets contra `xtop-widget-api`: pack base `xtop-widgets` + pack alternativo `xtop-widget-blocks` (crate hermano de los crates por widget para que los consumidores git resuelvan su dependencia `xtop-widget-core`) + comunidad en `custom/` |
 | `layouts` | **Disposición** | crate `xtop-layout`: modelo de layout guiado por datos + cargador JSONC + modos de layout, más `layouts/default/` (7 layouts ligados a modos + 3 extras de preset `detail_*`) y `layouts/custom/` (comunidad, instalables) |
-| `plugins` | **Funcionalidad** | implementaciones de plugins contra `xtop-plugin-api` (primer miembro: `xtop-plugin-samurai`) |
+| `plugins` | **Funcionalidad** | implementaciones de plugins contra `xtop-plugin-api` (`xtop-plugin-samurai`), los hosts de widgets en tiempo de ejecución (`xtop-plugin-wasm`, `xtop-plugin-external`) y sus crates compartidos (`xtop-wasm-contract`, `xtop-widget-replay`, `xtop-wasm-guest`) |
 | `extensions` | **Hooks del kernel** | extensiones estilo servidor contra `xtop-extension-api` (`xtop-extension-mcp`) |
 | `effects` | **Animación** | efectos de frame contra `xtop-effect-api` (`xtop-effect-fade`: fundido de entrada de 500 ms desde negro) |
 
@@ -64,11 +64,13 @@ del kernel — así que cada repo compila de forma independiente:
 |---|---|---|
 | En compilación (hoy) | dependencias git de Cargo + feature flags opcionales | Cada integración: plugin samurai, extensión mcp, pack blocks, efecto fade |
 | En desarrollo | `xtop plugin install <name>` (clona, automodifica el `Cargo.toml` del kernel, ejecuta `cargo check`) | Primeros pasos con un repo de plugins |
+| Widgets en tiempo de ejecución (hoy, opt-in) | features del kernel `plugin-wasm` (módulos `.wasm` en sandbox vía wasmi) y `plugin-external` (un proceso auxiliar por widget sobre líneas JSON), descubiertos en los directorios de configuración `wasm/` y `external/` | Código de widgets de terceros sin recompilar el kernel — ver `customization.md` ("Runtime Widgets") |
 | En ejecución (futuro, RFC) | descubrimiento binario/ABI de `xtop-plugin-*` / `xtop-effect-*` / `xtop-extension-*` en los directorios de configuración + `XTOP_*_DEV_DIR` | Terceros sin recompilar — ver la lista diferida del ROADMAP raíz §7 |
 
 El kernel nunca requiere ningún repo externo en tiempo de ejecución: las
 piezas opcionales del ecosistema son Cargo features (`plugin-samurai`,
-`mcp-extension`, `widget-blocks`, `effects`); los crates de contrato (los
+`mcp-extension`, `widget-blocks`, `effects`, `plugin-wasm`, `plugin-external`);
+los crates de contrato (los
 cuatro crates `xtop-*-api` más `xtop-widgets` y `xtop-layout`) son
 incondicionales porque el chrome y las vistas de estado del kernel están
 escritos contra ellos.

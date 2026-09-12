@@ -12,9 +12,9 @@ REPOS=(xtop api effects extensions layouts plugins widgets)
 # additional per-repo relative paths (beyond README.md and docs/)
 declare -A EXTRA=(
   [widgets]="custom/README.md"
-  [layouts]="layouts/custom/README.md"
-  [plugins]="plugins/xtop-plugin-samurai/README.md"
-  [extensions]="extensions/xtop-extension-mcp/README.md"
+  [layouts]="custom/README.md"
+  [plugins]="xtop-plugin-samurai/README.md CHANGELOG.md"
+  [extensions]="xtop-extension-mcp/README.md"
   [xtop]="ROADMAP.md CHANGELOG.md CONTRIBUTING.md"
 )
 

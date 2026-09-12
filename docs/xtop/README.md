@@ -1,5 +1,6 @@
-<h1 align="center">Xtop</h1>
-
+<div align="center">
+<img src="https://raw.githubusercontent.com/xtop-cli/web/main/public/img/logo.png" width="200px" alt="Xtop logo" />
+</div>
 <div align="center">
 
 ![Rust](https://img.shields.io/badge/Rust-1.87%2B-orange)
@@ -7,11 +8,15 @@
 ![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)
 ![ratatui](https://img.shields.io/badge/built%20with-ratatui-red)
 
-A cross-platform TUI system monitor written in Rust. Uses ratatui for the terminal interface and sysinfo for real-time system metrics.
+*A cross-platform TUI system monitor written in Rust. Uses ratatui for the terminal interface and sysinfo for real-time system metrics.*
+
+<p align="center">
+  <a href="https://xtop-cli.github.io/web/img/previews/preview1.webp">
+    <img src="https://xtop-cli.github.io/web/img/previews/preview1.webp" alt="Main preview" width="900"/>
+  </a>
+</p>
 
 </div>
-
-<p align="center"><img src="https://raw.githubusercontent.com/xscriptor/xassets/main/xrepos/apps/xtop/logo.svg" width="60" alt="XTop logo" /></p>
 
 <hr>
 
@@ -45,6 +50,8 @@ A cross-platform TUI system monitor written in Rust. Uses ratatui for the termin
   <li>Full-screen mode for any widget</li>
   <li>Configurable alert thresholds</li>
   <li>Persistent configuration</li>
+  <li>Runtime widgets: sandboxed WASM modules or helper processes (Lua, Python, ...) via the opt-in <code>plugin-wasm</code> / <code>plugin-external</code> features</li>
+  <li>Theme switching from the CLI (<code>xtop --ct &lt;theme&gt;</code>), followed live by running instances</li>
 </ul>
 
 <p>See <a href="docs/features.md">docs/features.md</a> for a detailed feature breakdown.</p>
@@ -53,15 +60,52 @@ A cross-platform TUI system monitor written in Rust. Uses ratatui for the termin
 
 <h2 id="previews">Previews</h2>
 
-<p align="center">
-  <a href="./assets/previews/preview1.png">
-    <img src="./assets/previews/preview1.png" alt="Main preview" width="850"/>
-  </a>
-</p>
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview2.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview2.webp" alt="xtop preview 2" width="100%"/>
+    </a>
+  </p>
 
-<p align="center">
-  <a href="./assets/previews">View more previews</a>
-</p>
+<details>
+  <summary><strong>More...</strong></summary>
+
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview3.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview3.webp" alt="xtop preview 3" width="100%"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview4.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview4.webp" alt="xtop preview 4" width="100%"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview5.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview5.webp" alt="xtop preview 5" width="100%"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview6.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview6.webp" alt="xtop preview 6" width="100%"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview7.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview7.webp" alt="xtop preview 7" width="100%"/>
+    </a>
+  </p>
+
+  <p align="center">
+    <a href="https://xtop-cli.github.io/web/img/previews/preview8.webp">
+      <img src="https://xtop-cli.github.io/web/img/previews/preview8.webp" alt="xtop preview 8" width="100%"/>
+    </a>
+  </p>
+</details>
 
 <hr>
 

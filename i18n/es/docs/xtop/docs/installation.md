@@ -50,7 +50,8 @@ rama para macOS. Instala con cargo (necesita el toolchain de Rust de rustup):</p
 
 <p>El binario acaba en <code>~/.cargo/bin</code>; asegúrate de que esté en tu PATH.
 <code>--all-features</code> habilita el plugin Samurai, la extensión MCP, el pack de
-widgets blocks y el módulo de efectos.</p>
+widgets blocks, el módulo de efectos y los dos hosts de widgets en tiempo de
+ejecución (WASM en sandbox y procesos externos).</p>
 
 <hr>
 

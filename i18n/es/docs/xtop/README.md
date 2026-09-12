@@ -45,6 +45,8 @@ Monitor de sistema TUI multiplataforma escrito en Rust. Usa ratatui para la inte
   <li>Modo de pantalla completa para cualquier widget</li>
   <li>Umbrales de alerta configurables</li>
   <li>Configuración persistente</li>
+  <li>Widgets en tiempo de ejecución: módulos WASM en sandbox o procesos auxiliares (Lua, Python, ...) mediante las features opcionales <code>plugin-wasm</code> / <code>plugin-external</code></li>
+  <li>Cambio de tema desde la CLI (<code>xtop --ct &lt;theme&gt;</code>), seguido en vivo por las instancias en ejecución</li>
 </ul>
 
 <p>Consulta <a href="docs/features.md">docs/features.md</a> para un desglose detallado de las funcionalidades.</p>

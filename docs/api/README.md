@@ -1,4 +1,5 @@
-# xtop api
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/xtop-cli/web/main/public/img/logo.png" width="100px" alt="Xtop logo" />Api</h1>
 
 Shared API crates for the xtop ecosystem. Kernel, plugins, widgets, effects
 and extensions all depend on these crates — they define the contracts between
