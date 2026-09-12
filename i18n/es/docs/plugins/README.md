@@ -50,8 +50,11 @@ cualquier pack compilado:
 Ninguna de las dos features forma parte de la compilación por defecto de `xtop`.
 Hay ejemplos funcionales en [`examples/`](examples/): guests WASM de Rust en
 [`examples/wasm/`](examples/wasm/) y procesos auxiliares en Lua/Python/Node en
-[`examples/external/`](examples/external/). La justificación y los compromisos
-están registrados en [docs/decisions.md](docs/decisions.md) (ADR-001).
+[`examples/external/`](examples/external/). Los layouts de demostración que
+organizan estos widgets viven en el repo `xtop-cli/layouts`, bajo
+`layouts/custom/`, y se instalan con `xtop layout install <name>`. La
+justificación y los compromisos están registrados en
+[docs/decisions.md](docs/decisions.md) (ADR-001).
 
 ## Para empezar (desarrollo)
 

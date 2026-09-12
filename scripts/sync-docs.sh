@@ -9,12 +9,15 @@ WEB_DOCS="$ROOT/docs"
 
 REPOS=(xtop api effects extensions layouts plugins widgets)
 
-# additional per-repo relative paths (beyond README.md and docs/)
+# Additional per-repo paths (beyond README.md and docs/). Each entry is
+# "dest_rel" or "dest_rel:src_rel" when the source lives under a different
+# internal folder than the mirror path (e.g. the crate folders inside the
+# plugins/layouts/extensions repos).
 declare -A EXTRA=(
   [widgets]="custom/README.md"
-  [layouts]="custom/README.md"
-  [plugins]="xtop-plugin-samurai/README.md CHANGELOG.md"
-  [extensions]="xtop-extension-mcp/README.md"
+  [layouts]="custom/README.md:layouts/custom/README.md"
+  [plugins]="xtop-plugin-samurai/README.md:plugins/xtop-plugin-samurai/README.md CHANGELOG.md"
+  [extensions]="xtop-extension-mcp/README.md:extensions/xtop-extension-mcp/README.md"
   [xtop]="ROADMAP.md CHANGELOG.md CONTRIBUTING.md"
 )
 
@@ -30,11 +33,14 @@ sync_repo() {
     cp -r "$SRC/$repo/docs" "$dest/docs"
   fi
 
-  for rel in ${EXTRA[$repo]:-}; do
-    local target="$SRC/$repo/$rel"
+  for spec in ${EXTRA[$repo]:-}; do
+    local dest_rel="${spec%%:*}"
+    local src_rel="${spec#*:}"
+    [ "$src_rel" = "$spec" ] && src_rel="$dest_rel"
+    local target="$SRC/$repo/$src_rel"
     if [ -f "$target" ]; then
-      mkdir -p "$(dirname "$dest/$rel")"
-      cp "$target" "$dest/$rel"
+      mkdir -p "$(dirname "$dest/$dest_rel")"
+      cp "$target" "$dest/$dest_rel"
     fi
   done
 }
