@@ -164,6 +164,37 @@ superficie de datos, densidad y legibilidad).
   según la política de versiones del ecosistema: mantenerse temprano, sin más
   subidas.
 
+### Hosts de widgets en tiempo de ejecución (opt-in)
+- Nuevas features opcionales `plugin-wasm` (widgets `.wasm` en sandbox vía wasmi)
+  y `plugin-external` (un proceso auxiliar por widget sobre JSON delimitado por
+  líneas); ambas no son por defecto y están ausentes del conjunto `default`, así
+  que el sistema de plugins/packs compilados y una compilación normal quedan
+  intactos. Los widgets en tiempo de ejecución se registran por la ruta de
+  widgets de plugins (precedencia sobre cualquier pack), se descubren en
+  `<config dir>/wasm/` y `<config dir>/external/` (`XTOP_WASM_DIR` /
+  `XTOP_EXTERNAL_DIR`) y se referencian en los layouts por el `name` del
+  manifest.
+- Los hosts y los crates compartidos viven en `xtop-cli/plugins`
+  (`xtop-plugin-wasm`, `xtop-plugin-external`, `xtop-wasm-contract`,
+  `xtop-widget-replay`, `xtop-wasm-guest`); hasta que ese repo se suba, el
+  kernel los consume como deps de path locales (volver a deps git antes del
+  push).
+- `--all-features` ahora habilita también los hosts en tiempo de ejecución
+  (wasmi más lanzamiento de procesos); `docs/installation.md` lo indica.
+- Docs: `docs/customization.md` y `docs/plugin.md` incorporan una sección
+  "Runtime Widgets"; los modos de integración de `docs/multi-repo.md` quedan
+  actualizados. La justificación se registra como ADR-001 en el repo plugins
+  (`plugins/docs/decisions.md`).
+
+### Cambio de tema desde la CLI
+- `xtop --ct <theme>` cambia el tema activo desde la línea de comandos y lo
+  persiste en `config.json`; una instancia en ejecución sigue el cambio en vivo
+  (el bucle de la TUI sondea el tema persistido en los límites de tick), de modo
+  que herramientas externas de cambio de tema, como un conmutador de temas de
+  Hyprland, pueden dirigirlo sin IPC. Los nombres desconocidos fallan con la
+  lista de temas disponibles (`src/commands/theme.rs`, `docs/usage.md`,
+  `docs/customization.md`).
+
 ## Historial anterior
 
 ### [0.0.1] - 2026-06-18

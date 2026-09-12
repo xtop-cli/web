@@ -204,6 +204,7 @@ para ejecutar la acción seleccionada y <kbd>Esc</kbd> para cerrar.</p>
   </thead>
   <tbody>
     <tr><td><code>xtop mcp</code></td><td>Inicia el servidor MCP (transporte stdio) para agentes de IA</td></tr>
+    <tr><td><code>xtop --ct &lt;theme&gt;</code></td><td>Cambia el tema activo (se persiste; las instancias en ejecución lo siguen en un tick)</td></tr>
     <tr><td><code>xtop plugin list</code></td><td>Enumera los plugins cableados en el <code>Cargo.toml</code> del kernel</td></tr>
     <tr><td><code>xtop plugin install &lt;name|url&gt;</code></td><td>Instala un plugin (automodifica el manifest del kernel)</td></tr>
     <tr><td><code>xtop plugin scaffold &lt;name&gt;</code></td><td>Crea una plantilla de crate de plugin en <code>plugins-dev/</code></td></tr>
@@ -221,7 +222,12 @@ una feature en la lista por defecto de <code>[features]</code> (o compila con
 <code>--features &lt;name&gt;</code>) y recompila para incluirla. Los detalles de
 los packs de widgets viven en <a href="customization.md#widget-packs">customization.md
 (&ldquo;Widget Packs&rdquo;)</a>, los de los plugins en
-<a href="plugin.md">plugin.md</a>.</p>
+<a href="plugin.md">plugin.md</a>. Los widgets también pueden proporcionarse en
+tiempo de ejecución, sin recompilar el kernel: compila con
+<code>--features plugin-wasm,plugin-external</code> y coloca módulos
+<code>.wasm</code> o descriptores de procesos auxiliares en el directorio de
+configuración — consulta <a href="customization.md#runtime-widgets">customization.md
+(&ldquo;Runtime Widgets&rdquo;)</a>.</p>
 
 <hr>
 

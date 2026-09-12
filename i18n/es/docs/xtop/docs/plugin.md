@@ -277,6 +277,29 @@ nunca puede desviarse de la implementación del plugin.</p>
 
 <hr>
 
+<h2 id="runtime-widgets">Widgets en tiempo de ejecución: WASM y procesos externos</h2>
+
+<p>Los plugins y los packs de widgets se integran en tiempo de compilación. Para
+código que no debería compilarse en el kernel, xtop incluye dos hosts opcionales
+(ambos desactivados por defecto):</p>
+
+<ul>
+  <li><code>plugin-wasm</code> — carga widgets <code>.wasm</code> en sandbox
+      con wasmi (límites de fuel y memoria, recarga en caliente).</li>
+  <li><code>plugin-external</code> — ejecuta un proceso auxiliar por widget sobre
+      JSON delimitado por líneas, de modo que Lua, Python, Node o cualquier
+      lenguaje con un runtime puede renderizar un widget.</li>
+</ul>
+
+<p>Los widgets en tiempo de ejecución se registran por la misma ruta de widgets
+de plugins que los plugins compilados, mantienen precedencia sobre los packs y
+se referencian en los layouts por el nombre de su manifest. Compila con
+<code>--features plugin-wasm,plugin-external</code> y consulta
+<a href="customization.md#runtime-widgets">customization.md
+(&ldquo;Runtime Widgets&rdquo;)</a> para ver directorios, ejemplos y la demo.</p>
+
+<hr>
+
 <h2 id="adding-a-plugin-manually">Añadir un plugin manualmente</h2>
 
 <ol>

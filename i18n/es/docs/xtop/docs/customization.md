@@ -30,6 +30,7 @@
     </ul>
   </li>
   <li><a href="#widget-packs">Packs de widgets</a></li>
+  <li><a href="#runtime-widgets">Widgets en tiempo de ejecución (WASM / procesos externos)</a></li>
 </ul>
 
 <hr>
@@ -578,6 +579,58 @@ coloca sus nombres de widget en un fichero de layout. La guía de autoría (el
 contrato del pack, cómo registran los packs sus renderers, las opciones de los
 renderers) vive en la documentación del repo de widgets
 (<code>docs/authoring.md</code>, <code>docs/widgets.md</code>).</p>
+
+<hr>
+
+<h2 id="runtime-widgets">Widgets en tiempo de ejecución (WASM / procesos externos)</h2>
+
+<p>Además de los packs compilados, xtop puede alojar <strong>widgets en tiempo
+de ejecución</strong>: código que no está compilado en el kernel y que se carga
+desde el directorio de configuración del usuario al arrancar. Existen dos hosts
+opcionales, ambos desactivados por defecto:</p>
+
+<table>
+  <thead>
+    <tr><th>Feature</th><th>Origen</th><th>Directorio</th><th>Aislamiento</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>plugin-wasm</code></td>
+      <td>módulos <code>.wasm</code> cargados con wasmi</td>
+      <td><code>wasm/</code> (anular con <code>XTOP_WASM_DIR</code>)</td>
+      <td>Sandbox en proceso: presupuesto de fuel por llamada, tope de memoria de 64&nbsp;MiB, sin más imports del host que <code>host.log</code></td>
+    </tr>
+    <tr>
+      <td><code>plugin-external</code></td>
+      <td>un proceso auxiliar por widget (Lua, Python, Node, cualquier lenguaje)</td>
+      <td><code>external/</code> (anular con <code>XTOP_EXTERNAL_DIR</code>)</td>
+      <td>La propia frontera de proceso (permisos del usuario); cada respuesta está acotada por <code>timeout_ms</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Compila con los hosts habilitados:</p>
+
+<pre><code>cargo build --release --features plugin-wasm,plugin-external</code></pre>
+
+<p>Los widgets en tiempo de ejecución se registran por la ruta de widgets de
+plugins, así que mantienen precedencia sobre cualquier pack y pueden reemplazar
+cualquier nombre de widget. Los layouts los referencian por el <code>name</code>
+del manifest del guest (por ejemplo <code>wasm-clock</code>). Un guest se llama
+una vez por tick y su lista de dibujo (draw list) se cachea y se reproduce en
+tiempo de render, de modo que un guest lento nunca puede bloquear un frame; los
+módulos WASM se recargan en caliente cuando cambia su fichero y los procesos
+auxiliares conservan su último frame bueno cuando expiran o fallan.</p>
+
+<p>Se incluyen ejemplos funcionales en el repo plugins: guests WASM de Rust en
+<code>examples/wasm/</code> (reloj, medidor de CPU + sparkline, tabla de
+procesos) y widgets auxiliares en Lua/Python/Node en
+<code>examples/external/</code>. Los contratos completos — ABI del guest,
+operaciones de la lista de dibujo, campos del snapshot de estado y el formato de
+descriptor externo — viven en <code>docs/wasm-widgets.md</code> y
+<code>docs/external-widgets.md</code> de ese repo. El workspace incluye una demo
+autocontenida que compila e instala todo en <code>temp/xtop-demo/</code> y lanza
+xtop contra ella: <code>./temp/xtop-demo/run-demo.sh</code>.</p>
 
 <hr>
 

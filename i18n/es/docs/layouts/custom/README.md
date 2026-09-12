@@ -38,3 +38,25 @@ en el directorio de diseños del usuario — edita ese archivo en su lugar. Los
 archivos personalizados anulan un diseño integrado reutilizando su `"name"`
 (misma posición de paleta) o aparecen como diseños extra con un `"name"`
 nuevo; ver `docs/authoring.md` para el flujo completo.
+
+## Layouts de widgets en tiempo de ejecución
+
+Algunos layouts de esta carpeta usan **widgets en tiempo de ejecución**
+(módulos WASM en sandbox o procesos auxiliares) en lugar de packs compilados:
+
+| Archivo | Nombre del layout | Widgets necesarios |
+|---|---|---|
+| `wasm_demo.jsonc` | WASM Demo | `wasm-clock`, `wasm-cpu`, `wasm-procs`, `lua-clock`, `py-cpu` |
+| `polyglot_dashboard.jsonc` | Polyglot Dashboard | los anteriores más `c-ticker`, más los packs `header`/`network`/`storage` |
+| `wasm_procs_focus.jsonc` | WASM Procs Focus | `wasm-cpu`, `py-cpu`, `wasm-procs` |
+| `cpu_stats.jsonc` | CPU Stats | `py-cpu-chart`, `py-cpu`, `wasm-cpu`, `wasm-procs` |
+| `math_lab.jsonc` | Math Lab | `py-mem-regression`, `lua-histogram`, `wasm-load-stats`, `c-cpu-avg` |
+
+Necesitan un kernel compilado con las features opcionales `plugin-wasm` /
+`plugin-external` y los widgets de ejemplo del repo
+[`xtop-cli/plugins`](https://github.com/xtop-cli/plugins)
+(`examples/wasm/` y `examples/external/`), instalados en los directorios de
+configuración del usuario (`wasm/` y `external/`). Sin esos widgets los
+nombres referenciados dejan áreas vacías y el kernel avisa una vez por cada
+nombre desconocido; consulta la documentación del repo plugins
+(`docs/wasm-widgets.md`, `docs/external-widgets.md`).
