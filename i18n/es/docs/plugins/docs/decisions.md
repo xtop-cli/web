@@ -82,8 +82,8 @@ Se adopta la alternativa 5.
 - Límite del payload por tick: `max_processes` (por defecto 50, acotado a
   1–4096), orden descendente por CPU antes del truncado.
 - Distribución: los hosts viven en este repo; el kernel los consume como
-  dependencias git una vez subidos (deps de path temporales durante el
-  desarrollo).
+  dependencias git (`xtop-cli/plugins`), así que un checkout limpio del kernel
+  compila sin repos hermanos.
 
 ### Consecuencias
 
@@ -116,6 +116,6 @@ Se adopta la alternativa 5.
 - Operaciones: descubrimiento en el directorio de configuración, anulaciones por
   variables de entorno, y `--all-features` ahora arrastra wasmi y lanzamiento
   de procesos (los docs de instalación lo indican).
-- Release: el kernel referencia actualmente ambos hosts con deps de path
-  (`../plugins/plugins/...`); deben convertirse en deps git una vez subido este
-  repo. `Cargo.lock` los registra como fuentes de path hasta entonces.
+- Release: el kernel consume ambos hosts como dependencias git
+  (`https://github.com/xtop-cli/plugins`); no hay ventana de deps de path que
+  revertir.

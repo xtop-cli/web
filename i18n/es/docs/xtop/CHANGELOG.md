@@ -176,9 +176,12 @@ superficie de datos, densidad y legibilidad).
   manifest.
 - Los hosts y los crates compartidos viven en `xtop-cli/plugins`
   (`xtop-plugin-wasm`, `xtop-plugin-external`, `xtop-wasm-contract`,
-  `xtop-widget-replay`, `xtop-wasm-guest`); hasta que ese repo se suba, el
-  kernel los consume como deps de path locales (volver a deps git antes del
-  push).
+  `xtop-widget-replay`, `xtop-wasm-guest`) y se consumen como dependencias
+  git, de modo que un clon limpio compila sin checkouts hermanos.
+- Los instaladores pueden habilitar los hosts:
+  `install.sh --with-runtime-widgets` e `install.ps1 -RuntimeWidgets` pasan
+  `--features plugin-wasm,plugin-external` a la compilación; la instalación
+  por defecto no cambia.
 - `--all-features` ahora habilita también los hosts en tiempo de ejecución
   (wasmi más lanzamiento de procesos); `docs/installation.md` lo indica.
 - Docs: `docs/customization.md` y `docs/plugin.md` incorporan una sección
