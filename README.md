@@ -62,3 +62,7 @@
 <a href="https://www.xscriptor.com">X</a>
 
 </div>
+
+## License
+
+GPL-3.0-or-later. See [LICENSE](LICENSE).

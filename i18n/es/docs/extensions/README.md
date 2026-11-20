@@ -64,4 +64,4 @@ extensions/     this repo
 
 ## Licencia
 
-MIT
+GPL-3.0-or-later

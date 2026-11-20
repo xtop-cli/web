@@ -82,7 +82,7 @@ renumerado).
 
 ## Estado
 
-- Crate: `xtop-layout` v0.1.0, `rust-version = "1.87"`, edición 2021, MIT,
+- Crate: `xtop-layout` v0.1.0, `rust-version = "1.87"`, edición 2021, GPL-3.0-or-later,
   sin dependencias de terceros más allá de serde/serde_json.
 - Decisiones D-1..D-3 registradas el 2026-09-04 como parte del hito M6
   (documentación del esquema implícito).

@@ -180,7 +180,7 @@ const ES: Copy = {
     ctaInstall: "Instalar",
     ctaDocs: "Documentación",
   },
-  badges: ["Rust 1.87+", "ratatui", "sysinfo", "linux · macOS · windows", "MIT"],
+  badges: ["Rust 1.87+", "ratatui", "sysinfo", "linux · macOS · windows", "GPL-3.0-or-later"],
   stats: [
     { n: 7, suffix: "", label: "repositorios · kernel + 6 áreas" },
     { n: 41, suffix: "", label: "archivos de documentación espejados" },
@@ -340,7 +340,7 @@ const ES: Copy = {
     ecosystem: "Ecosistema",
     docs: "Docs",
     resources: "Recursos",
-    license: "© 2026 xtop-cli · MIT License · Rust 1.87+",
+    license: "© 2026 xtop-cli · GPL-3.0-or-later · Rust 1.87+",
     themeNote: "Oscuro: X · Claro: Madrid — temas de",
     quick: {
       installation: "Instalación",
@@ -386,7 +386,7 @@ const EN: Copy = {
     ctaInstall: "Install",
     ctaDocs: "Documentation",
   },
-  badges: ["Rust 1.87+", "ratatui", "sysinfo", "linux · macOS · windows", "MIT"],
+  badges: ["Rust 1.87+", "ratatui", "sysinfo", "linux · macOS · windows", "GPL-3.0-or-later"],
   stats: [
     { n: 7, suffix: "", label: "repositories · kernel + 6 areas" },
     { n: 41, suffix: "", label: "documentation files mirrored" },
@@ -546,7 +546,7 @@ const EN: Copy = {
     ecosystem: "Ecosystem",
     docs: "Docs",
     resources: "Resources",
-    license: "© 2026 xtop-cli · MIT License · Rust 1.87+",
+    license: "© 2026 xtop-cli · GPL-3.0-or-later · Rust 1.87+",
     themeNote: "Dark: X · Light: Madrid — themes from",
     quick: {
       installation: "Installation",

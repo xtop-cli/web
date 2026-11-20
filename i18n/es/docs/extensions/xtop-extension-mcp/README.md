@@ -82,4 +82,4 @@ cargo build --workspace
 
 ## Licencia
 
-MIT
+GPL-3.0-or-later
