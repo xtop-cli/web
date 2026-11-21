@@ -66,4 +66,4 @@ Solo local: este repo no conserva flujos de trabajo de GitHub.
 
 ## Licencia
 
-MIT
+GPL-3.0-or-later

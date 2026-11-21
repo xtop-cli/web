@@ -2,6 +2,7 @@
   "name": "xtop-web",
   "version": "0.1.0",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "description": "Xtop official site and documentation — cross-platform TUI system monitor written in Rust",
   "scripts": {
     "prebuild": "node scripts/build-search-index.mjs",

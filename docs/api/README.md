@@ -67,4 +67,4 @@ Local only: this repo keeps no GitHub workflows.
 
 ## License
 
-MIT
+GPL-3.0-or-later. See [LICENSE](LICENSE).

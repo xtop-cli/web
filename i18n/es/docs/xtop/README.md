@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Rust](https://img.shields.io/badge/Rust-1.87%2B-orange)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![License](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)
 ![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)
 ![ratatui](https://img.shields.io/badge/built%20with-ratatui-red)
 

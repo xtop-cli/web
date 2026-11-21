@@ -36,7 +36,7 @@ Hechos del workspace (`Cargo.toml`):
 
 - `resolver = "2"`; los miembros son los cuatro crates anteriores.
 - `[workspace.package]`: `version = "0.1.0"`, `edition = "2021"`,
-  `license = "MIT"`, `rust-version = "1.87"`. La edition se mantiene en 2021
+  `license = "GPL-3.0-or-later"`, `rust-version = "1.87"`. La edition se mantiene en 2021
   a propósito (la migración a 2024 está diferida, ROADMAP §7).
 - `[workspace.dependencies]` (DR-7): `ratatui = "0.30.2"`,
   `serde = { version = "1", features = ["derive"] }`, `serde_json = "1"`.

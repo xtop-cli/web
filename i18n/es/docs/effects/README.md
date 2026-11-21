@@ -67,4 +67,4 @@ Etapas: `fmt` | `clippy` | `check` | `test`.
 
 ## Licencia
 
-MIT
+GPL-3.0-or-later

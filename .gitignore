@@ -66,6 +66,8 @@ htmlcov/
 core
 core.*
 *.core
+# Keep the kernel core documentation mirror (name collides with coredumps).
+!docs/xtop/docs/core.md
 
 # KDE/GNOME/otros artefactos de escritorio
 .directory
@@ -83,3 +85,5 @@ Thumbs.db
 
 # Fuentes/scripts binarios en caché (no mezclar con assets versionados)
 tmp/
+*.orig
+*.rej

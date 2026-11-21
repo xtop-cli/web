@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.1] - 2026-11-21
+
+- Split the kernel into core, cli and tui layers with unix, windows and
+  fallback terminal backends.
+- Added external theme and layout assets, the catalog downloader, addon
+  management and the installable Process Tree layout.
+- Added the interactive command bar, plugin enable/disable persistence,
+  headless status/processes/watch commands, info/doctor, completions and
+  self-update with installation-medium detection.
+- Updated GPL-3.0-or-later licensing, docs, tests and the structural audit.
+
+Security-hardening pass (release/v0.1.0 branch):
+
+- Hardened `plugin install` / `widget install`: URL and crate-name validation,
+  `--` before git URLs, TOML escaping, and source-name checks.
+- Bounded Windows process/thread FFI reads to the kernel-provided buffer.
+- `roadmap-sync` now opens a PR instead of pushing directly to `main`.
+
 ## [0.1.0] - 2026-09-04
 
 Version policy note: the ecosystem stays early — everything is 0.1.0. The
@@ -7,6 +25,23 @@ entry below consolidates the post-refactor kernel work of this cycle
 (theme format v2 + contrast engine, preset extras, sort direction,
 role-colored chrome, ecosystem externalization, data surface, density and
 legibility) into one cumulative list.
+
+### Distribution and installation
+- Prebuilt installers: `install-prebuilt.sh` and `install-prebuilt.ps1`
+  download the release archive for the current platform, verify the release
+  `SHA256SUMS` and, when cosign is available, the keyless signature bundle.
+  Linux glibc/musl, macOS Intel/Apple Silicon and Windows x86_64 are covered.
+- Tag-triggered release workflow (`.github/workflows/release.yml`): gate on
+  tag ancestry and the crate version, six-target build matrix, archive
+  validation, `SHA256SUMS`, cosign signature, provenance attestations and
+  GitHub Release publishing.
+- PR CI workflow (`.github/workflows/ci.yml`) runs the local gate and the
+  structural audit.
+- `scripts/audit.sh` budgets `platform/` trees separately from their parent
+  area, so OS-specific probes do not consume the core area budget.
+- `SECURITY.md` documents private reporting, the plugin capability model and
+  release verification.
+- `PKGBUILD` `pkgver` refreshed to the current commit count and hash.
 
 ### Kernel data surface
 - Theme format v2: the 12 shipped theme files carry explicit
